@@ -34,7 +34,7 @@
         ]) ?>
     <?= form_close(); ?> <br>
 
-    <button><a href="<?= site_url(['login', 'registrar'])?>">
+    <button><a href="<?= site_url(['registrar'])?>">
         CRIAR CONTA
     </a></button>
 

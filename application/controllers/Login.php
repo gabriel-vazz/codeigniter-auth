@@ -11,7 +11,7 @@ class Login extends CI_Controller {
             redirect('/');
         }
 
-        $this->load->view('login');
+        $this->load->view('/auth/login');
     }
 
 ###################################################################################################
@@ -22,7 +22,7 @@ class Login extends CI_Controller {
         $this->load->helper('url');
         $this->load->library('session');
 
-        if($this->usuario->validarFormulario()) {
+        if($this->usuario->validar()) {
             $data = $this->input->post();
 
             $usuarioExiste = $this->usuario->getByCredentials([
@@ -44,7 +44,7 @@ class Login extends CI_Controller {
             }
         }
 
-        $this->load->view('registrar');
+        $this->load->view('/auth/registrar');
     }
 
 ###################################################################################################

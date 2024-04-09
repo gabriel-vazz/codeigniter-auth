@@ -55,3 +55,6 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['registrar'] = '/login/registrar';
 $route['logout'] = '/login/logout';
+
+$route['perfil/post'] = '/posts';
+$route['perfil/(:num)'] = '/perfil/usuario/$1';
