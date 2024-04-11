@@ -67,6 +67,13 @@ class Usuario extends CI_Model {
         return $this->form_validation->run();
     }
 
+    public function pesquisar(string $pesquisa) {
+        $this->db->like('nome', $pesquisa);
+        $query = $this->db->get($this->table);
+        
+        return $query->result_array();
+    }
+
     public function getSession() {
         $this->load->library('session');
 
@@ -74,10 +81,5 @@ class Usuario extends CI_Model {
         $query = $this->db->get_where($this->table, ['id' => $session['id']]);
 
         return $query->result_array()[0];
-    }
-
-    public function pesquisar(string $data) {
-        $query = $this->db->like('nome', $data)->get($this->table);
-        return $query->result_array();
     }
 }

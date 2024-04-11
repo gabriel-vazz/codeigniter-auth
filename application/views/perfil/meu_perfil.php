@@ -15,15 +15,9 @@
     <b>E-Mail: </b> <?= $perfil['email'] ?>. <br>
     <b>Senha: </b> <?= $perfil['senha'] ?>. <br><br>
 
-    <button><a href="<?= site_url('home') ?>">
-        VOLTAR
-    </a></button>
-    <button><a href="<?= site_url(['perfil', 'editar']) ?>">
-        EDITAR PERFIL
-    </a></button> 
-    <button><a href="<?= site_url(['perfil', 'post'])  ?>">
-        POST
-    </a></button> <br><br>
+    <button><a href="<?= site_url('home') ?>">VOLTAR</a></button>
+    <button><a href="<?= site_url(['perfil', 'editar']) ?>">EDITAR PERFIL</a></button> 
+    <button><a href="<?= site_url(['perfil', 'post'])  ?>">POST</a></button> <br><br>
 
     <div style="color: green;">
         <?php if($this->session->flashdata('atualizado')) : ?>
@@ -39,8 +33,14 @@
     <h2>Minhas Postagens</h2>
 
     <?php foreach($posts as $post) : ?>
-        <?= $post['texto'] ?> <br>
-    <?php endforeach ?>
-    </div>
+        <div style="margin-bottom: 6px;"><?= $post['texto'] ?></div>
+
+        <button><a href="<?= site_url(['perfil', 'editar_post', $post['id']])?>">
+            EDITAR
+        </a></button>
+        <button><a href="<?= site_url(['posts', 'deletar', $post['id']])?>">
+            DELETAR
+        </a></button> <br><br>
+    <?php endforeach ?> 
 </body>
 </html>

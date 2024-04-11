@@ -58,3 +58,4 @@ $route['logout'] = '/login/logout';
 
 $route['perfil/post'] = '/posts';
 $route['perfil/(:num)'] = '/perfil/usuario/$1';
+$route['perfil/editar_post/(:num)'] = '/posts/editar/$1';

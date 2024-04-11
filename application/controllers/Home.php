@@ -9,32 +9,31 @@ class Home extends CI_Controller {
         $this->load->helper(['url', 'form']);
 
         $this->load->model('usuario');
+        $this->load->model('post');
 
         if(!$this->session->has_userdata('usuario')) {
             redirect('/login');
         }
 
         $sessao = $this->usuario->getSession();
-        $usuarios = $this->usuario->getAll();
+        $posts = $this->post->getAllPosts();
 
         $this->load->view('home', [
             'sessao' => $sessao,
-            'usuarios' => $usuarios
+            'posts' => $posts
         ]);
     }
 
 ###################################################################################################
 
-    public function pesquisa(string $data) {
-        
-        $this->load->library('session');
+    public function pesquisa(string $pesquisa) {
+
         $this->load->model('usuario');
+        $resultados = $this->usuario->pesquisar($pesquisa);
 
-        $pesquisa = $this->usuario->pesquisar($data);
-
-        $this->load->view('/components/tabela', [
-            'sessao' => $this->session->userdata('usuario'),
-            'usuarios' => $pesquisa,
+        $this->load->view('/components/perfis', [
+            'usuarios' => $resultados
         ]);
+
     }
 }

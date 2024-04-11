@@ -30,7 +30,16 @@ class Login extends CI_Controller {
             ]);
 
             if(!$usuarioExiste) {
-                $this->usuario->insert($data);
+                $hash = password_hash(
+                    $data['senha'], PASSWORD_DEFAULT
+                );
+    
+                $this->usuario->insert([
+                    'nome' => $data['nome'],
+                    'email' => $data['email'],
+                    'senha' => $hash 
+                ]);
+
                 $this->session->set_flashdata(
                     'sucesso', 
                     'Sua conta foi criada com sucesso!'
@@ -58,23 +67,30 @@ class Login extends CI_Controller {
         $input = $this->input->post();
 
         $usuario = $this->usuario->getByCredentials([
-            'nome' => $input['nome'], 
-            'senha' => $input['senha']
-        ]);
+            'nome' => $input['nome']]
+        );
 
-        if(!$usuario) {
-            $this->session->set_flashdata('erro_credenciais', 'Credenciais Incorretas.');
+        $auth = password_verify(
+            $input['senha'], 
+            $usuario[0]['senha']
+        );
+
+        if(!$auth) {
+            $this->session->set_flashdata(
+                'erro_credenciais', 
+                'Credenciais Incorretas.'
+            );
             redirect('/login');
         } else {
             $this->session->set_userdata('usuario', $usuario[0]);
             redirect('/');
         }
-
     }
 
 ###################################################################################################
 
     public function logout() {
+        
         $this->load->library('session');
         $this->load->helper('url');
         

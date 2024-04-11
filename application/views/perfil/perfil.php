@@ -10,13 +10,13 @@
 <body>
     <h1><?= $perfil['nome'] ?></h1>
 
+    <button><a href="<?= site_url('') ?>">
+        VOLTAR
+    </a></button>
+
     <h2>Postagens</h2>
     <?php foreach($posts as $post) : ?>
         <?= $post['texto'] ?> <br>
     <?php endforeach ?> <br>
-
-    <button><a href="<?= site_url('') ?>">
-        VOLTAR
-    </a></button>
 </body>
 </html>

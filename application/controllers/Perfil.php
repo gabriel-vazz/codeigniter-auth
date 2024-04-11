@@ -43,13 +43,22 @@ class Perfil extends CI_Controller {
         }
     }
 
+###################################################################################################
+
     public function usuario(int $id) {
+
+        $this->load->helper('url');
 
         $this->load->model('usuario');
         $this->load->model('post');
 
         $perfil = $this->usuario->getById($id);
         $posts = $this->post->getByUserId($id);
+
+        $sessao = $this->usuario->getSession();
+        if($sessao['id'] == $id) {
+            redirect('/perfil');
+        }
 
         $this->load->view('/perfil/perfil', [
             'perfil' => $perfil[0],
